@@ -1,7 +1,6 @@
-import { base, title, titleH2 } from "@/app/page";
 import { Section } from "@/components/layout/Section";
 import { Card, CardContent } from "@/components/ui/card";
-import React from "react";
+
 import { Gavel, HeartHandshake, Building2 } from "lucide-react"; // ← importamos los iconos
 
 const benefits = [
@@ -30,21 +29,11 @@ const benefits = [
 
 const WhyChooseUs = () => {
   return (
-    <Section id="about" size="content" className="py-16 md:py-20 lg:py-24">
+    <Section id="about" height="content" className="py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Título principal */}
         <div className="text-start md:text-center mb-12 md:mb-16">
-          <h2
-            className={`
-              text-5xl sm:text-4xl md:text-5xl 
-              font-bold tracking-tight 
-              text-gray-900
-              text-balance
-              ${titleH2}
-            `}
-          >
-            Why Choose Us
-          </h2>
+          <h2>Por qué elegirnos</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
@@ -75,11 +64,11 @@ const WhyChooseUs = () => {
                 </div>
 
                 <h3
-                  className={`text-2xl md:text-2xl font-semibold mb-3 ${title} text-balance`}
+                  className={`text-2xl md:text-2xl font-semibold mb-3  text-balance`}
                 >
                   {benefit.title}
                 </h3>
-                <p className={`text-foreground/80 ${base} leading-relaxed`}>
+                <p className={`text-foreground/80  leading-relaxed`}>
                   {benefit.description}
                 </p>
               </CardContent>

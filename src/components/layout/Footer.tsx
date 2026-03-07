@@ -1,12 +1,28 @@
-import { base, title, titleH2 } from "@/app/page";
-import { Dumbbell, Gavel } from "lucide-react";
-
+"use client";
+import { Gavel } from "lucide-react";
+import { Button } from "../ui/button";
+import { useLenis } from "lenis/react";
+const sections = [
+  { id: "hero", label: "Inicio" },
+  { id: "stats", label: "Stats" },
+  {
+    id: "practice",
+    label: "Áreas de Práctica",
+  },
+  {
+    id: "about",
+    label: "Resultados",
+  },
+  { id: "faq", label: "Preguntas" },
+  { id: "contact", label: "Contacto" },
+];
 export function FooterSection() {
+  const lenis = useLenis();
   return (
-    <footer className="bg-black text-gray-300 py-12 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-background py-12 px-6 md:px-12 border-t border-border">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-10">
         {/* Columna 1: Logo + descripción (marcado como pediste) */}
-        <div>
+        <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
           <div id="logo-placeholder" className="flex items-center gap-3 mb-4">
             {/* ← Aquí va tu logo */}
             <Gavel className="h-10 w-10 text-primary" strokeWidth={2.5} />
@@ -26,40 +42,33 @@ export function FooterSection() {
         </div>
 
         {/* Columna 2: Useful links */}
-        <div>
-          <h3 className={`${title} text-lg font-semibold text-white mb-4`}>
-            Useful links
-          </h3>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <a href="#" className="hover:text-primary transition-colors">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-primary transition-colors">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-primary transition-colors">
-                Classes
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-primary transition-colors">
-                Contact
-              </a>
-            </li>
+        <div className="flex flex-col gap-3">
+          <h3>Useful links</h3>
+          <ul className="flex flex-col gap-3 text-sm">
+            {sections.map((section) => (
+              <li key={section.id}>
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    lenis?.scrollTo(`#${section.id}`, {
+                      offset: -96,
+                      duration: 1.2,
+                    });
+                  }}
+                  variant={"link"}
+                  className="h-fit text-foreground"
+                >
+                  {section.label}
+                </Button>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Columna 3: Support */}
-        <div>
-          <h3 className={`${title} text-lg font-semibold text-white mb-4`}>
-            Support
-          </h3>
-          <ul className="space-y-3 text-sm">
+        <div className="flex flex-col gap-3">
+          <h3>Support</h3>
+          <ul className="space-y-3 text-sm text-foreground">
             <li>
               <a href="#" className="hover:text-primary transition-colors">
                 Login
@@ -81,27 +90,6 @@ export function FooterSection() {
               </a>
             </li>
           </ul>
-        </div>
-
-        {/* Columna 4: Tips & Guides */}
-        <div>
-          <h3 className={`${titleH2} text-lg font-semibold text-white mb-4`}>
-            Tips & Guides
-          </h3>
-          <div className="space-y-6">
-            <div>
-              <p className="text-primary text-sm font-medium">
-                Physical fitness may help prevent depression, anxiety
-              </p>
-              <p className="text-xs mt-1">3 min read | 20 Comment</p>
-            </div>
-            <div>
-              <p className="text-primary text-sm font-medium">
-                Fitness: The best exercise to lose belly fat and tone up...
-              </p>
-              <p className="text-xs mt-1">3 min read | 20 Comment</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -133,7 +121,7 @@ export function FooterSection() {
           </div>
 
           {/* Copyright centrado/derecha */}
-          <p className={`text-sm text-center md:text-right ${base}`}>
+          <p className={`text-sm text-center md:text-right `}>
             Copyright ©2026 All rights reserved | This template is made with ♥
             by Colorlib
           </p>

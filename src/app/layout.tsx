@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
-import { SectionNavbar } from "../components/layout/Nav";
 import { FooterSection } from "../components/layout/Footer";
 import ExampleMessage from "@/components/layout/Sections/Example";
+import { NavbarBase } from "@/components/layout/Nav";
+import { roboto, lora, montserrat } from "@/lib/fonts";
+import ReactLenis from "lenis/react";
 
 const metadata: Metadata = {
   title: {
@@ -35,7 +36,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={``} suppressHydrationWarning>
+    <html
+      lang="es"
+      className={`${roboto.variable} ${lora.variable} ${montserrat.variable}`}
+      suppressHydrationWarning
+    >
       <body
         className="
           min-h-screen antialiased text-foreground bg-fixed
@@ -45,11 +50,12 @@ export default function RootLayout({
         "
       >
         {/* Opcional: capa extra para overlay si quieres más control */}
-
-        <SectionNavbar />
-        {children}
-        <FooterSection />
-        <ExampleMessage />
+        <ReactLenis root>
+          <NavbarBase />
+          {children}
+          <FooterSection />
+          <ExampleMessage />
+        </ReactLenis>
       </body>
     </html>
   );

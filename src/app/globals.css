@@ -94,6 +94,57 @@
   --sidebar-accent-foreground: oklch(0.18 0.01 260);
   --sidebar-border: oklch(0.80 0.01 260 / 0.20);
   --sidebar-ring: oklch(0.78 0.18 80 / 0.35);
+
+
+  /* altura nav */
+  --navbar-height:96px;
+
+  /* font sources */
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  --font-serif: var(--font-lora);
+  --font-title: var(--font-montserrat), var(--font-sans);
 }
 
 
+html{
+  scroll-behavior: smooth;
+}
+
+.nav {
+  transition: height 300ms ease, box-shadow 300ms ease;
+}
+
+section {
+  scroll-margin-top: var(--navbar-height);
+}
+
+
+/* FONTS */
+.font-title {
+  font-family: var(--font-title);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-base {
+  font-family: var(--font-sans);
+}
+
+h1{
+  font-family: var(--font-serif);
+  @apply text-secondary/90 text-6xl lg:text-7xl 2xl:text-9xl w-full font-bold text-balance
+}
+h2{
+  font-family: var(--font-title);
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold text-balance
+}
+h3{
+  font-family:Var(--font-title);
+  @apply text-lg font-semibold text-foreground mb-4;
+}
+span,p,button{
+  font-family: var(--font-sans);
+  @apply text-balance
+}

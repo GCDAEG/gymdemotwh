@@ -1,7 +1,7 @@
 // components/FloatingWhatsAppButton.tsx
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react"; // o el icono que uses
 import Link from "next/link";
 

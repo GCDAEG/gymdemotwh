@@ -1,4 +1,3 @@
-import { base, title, titleH2 } from "@/app/page";
 import { Section } from "@/components/layout/Section";
 import { StaggerContainer } from "@/components/motion/StraggerContainer";
 import {
@@ -53,36 +52,30 @@ const lawServices = [
 
 const PracticeArea = ({}) => {
   return (
-    <Section id="practice" size="content">
+    <Section id="practice" height="screen" className="py-16 md:py-20 lg:py-24">
       <StaggerContainer>
         <div className="w-full h-fit  rounded-full flex justify-center items-center mb-14">
-          <h2
-            className={`text-5xl md:text-5xl lg:text-6xl font-extrabold ${titleH2}`}
-          >
-            Áreas de Práctica
-          </h2>
+          <h2>Áreas de Práctica</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-28 flex-col items-center text-foreground bg-background">
           {lawServices.map((service) => (
             <div
               key={service.title}
-              className="group h-full relative rounded-xl overflow-hidden shadow-md hover:border border-muted hover:shadow-2xl transition-all duration-300"
+              className="group h-full relative rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-md transition-all duration-300"
             >
               {/* Icono centrado arriba */}
               <div className="relative pt-10 pb-6 flex justify-center">
                 {/* Aquí pondrías el icono correspondiente, ej con lucide-react */}
                 {/* <Landmark className="w-16 h-16 text-amber-500" /> */}
-                <div className="w-20 h-20 p-2  rounded-[80%] flex items-center justify-center border-b-8 border-primary text-primary">
-                  <div className="w-5/6">{service.icon}</div>
+                <div className="w-20 h-20 p-2  rounded-[80%] flex items-center justify-center border-4 border-primary/50 text-primary">
+                  <div className="w-5/6 text-foreground">{service.icon}</div>
                 </div>
               </div>
 
               {/* Contenido */}
-              <div
-                className={`relative px-3 lg:px-4 pb-10 text-center ${base}`}
-              >
+              <div className={`relative px-3 lg:px-4 pb-10 text-center `}>
                 <h3
-                  className={`text-2xl md:text-2xl font-bold mb-4 ${title} whitespace-nowrap`}
+                  className={`text-2xl md:text-2xl font-bold mb-4  whitespace-nowrap`}
                 >
                   {service.title.toUpperCase()}
                 </h3>

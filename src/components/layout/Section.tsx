@@ -1,27 +1,49 @@
+"use client";
+
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
 type SectionProps = {
   id?: string;
-  className?: string;
   children: React.ReactNode;
-  size: "screen" | "content";
+  className?: string;
+  height?: "screen" | "content";
+  lazy?: boolean;
+  animate?: "fade" | "none";
+  threshold?: number;
 };
 
-export function Section({ id, className, children, size }: SectionProps) {
+export function Section({
+  id,
+  children,
+  className,
+  height = "content",
+  lazy = false,
+  animate = "none",
+  threshold = 0.1,
+}: SectionProps) {
+  const ref = useRef<HTMLElement>(null);
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-80px",
+    amount: threshold,
+  });
+
   return (
     <section
       id={id}
+      ref={ref}
       className={cn(
-        `
-        px-4 md:px-6 lg:px-28
-          relative w-full
-          flex
-          ${size == "screen" ? "min-h-[calc(100vh-var(--navbar-height))] scroll-mt-(--navbar-height)" : "h-fit"}
-        `,
+        "relative w-full px-5 md:px-6 lg:px-28",
+        height === "screen" && "min-h-[calc(100vh-var(--navbar-height))]",
         className,
       )}
     >
-      {children}
+      <div className={cn(animate === "fade" && isInView && "animate-fade-in")}>
+        {!lazy || isInView ? children : null}
+      </div>
     </section>
   );
 }

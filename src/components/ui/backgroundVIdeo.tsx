@@ -65,7 +65,7 @@ export default function BackgroundVideo({
     <Section
       className={`flex relative overflow-hidden ${className} `}
       id={id}
-      size="screen"
+      height="screen"
     >
       {/* Video de fondo */}
       <video

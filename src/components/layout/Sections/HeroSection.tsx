@@ -1,6 +1,5 @@
 import React from "react";
-import { title, title as titleFont } from "@/app/page";
-import { base } from "framer-motion/client";
+
 import BackgroundVideo from "../../ui/backgroundVIdeo";
 import { Button } from "../../ui/button";
 // interface HeroSectionProps {}
@@ -8,27 +7,22 @@ import { Button } from "../../ui/button";
 const HeroSection = ({}) => {
   return (
     <BackgroundVideo
-      className={`flex bg-red-500/30`}
+      className={`flex bg-red-500/30 items-end`}
       src="/backgroundvideo.mp4"
       overlay={"gradient"}
+      id="hero"
     >
-      {" "}
       {/* Por que no puedo lograr que esta linea ocupe todo el contenedor? (Esta linea es para la IA)*/}
-      <div className="flex w-full" id="hero">
-        <div className=" w-full flex justify-end md:justify-center flex-col space-y-5 md:text-center pb-5">
-          <div className="flex flex-col gap-12 flex-1 justify-end text-accent/85">
-            <h1
-              className={` text-6xl lg:text-7xl ${title} w-full 2xl:text-9xl font-bold`}
-            >
-              Defendemos lo que más importa
-            </h1>
-            <p className={`${base} text-xl`}>
-              Tu futuro. Tu libertad. Tu familia.
-            </p>
+      <div className="flex w-full">
+        <div className=" w-full flex justify-end md:justify-center flex-col gap-12 md:text-center pb-5">
+          <div className="flex flex-col gap-5 flex-1 justify-end items-center text-accent/85">
+            <h1>Defendemos lo que más importa</h1>
+            <p className={`text-xl`}>Tu futuro. Tu libertad. Tu familia.</p>
           </div>
           <div className="w-full">
             <Button
-              className={`rounded-xs text-xl bg-card/10 text-primary border-2 border-primary h-12 w-52 ${title}`}
+              variant={"ghost"}
+              className={`rounded-xs text-xl border-2 border-primary text-primary bg-primary/5 h-12 w-52 cursor-pointer hover:bg-primary/90 hover:text-black `}
             >
               Consultar
             </Button>
