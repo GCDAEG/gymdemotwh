@@ -1,23 +1,13 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { FaBars } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import { NavSection } from "@/lib/sections";
 import Link from "next/link";
-import { Gavel, Waves } from "lucide-react";
+import { Waves, X, Disc, Camera, CameraIcon } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { HiBars2, HiBars3 } from "react-icons/hi2";
-import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
+import { HiBars3BottomRight } from "react-icons/hi2";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MobileMenuProps {
   sections: NavSection[];
@@ -27,84 +17,126 @@ interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ sections, activeSection }) => {
   const [open, setOpen] = useState(false);
   const lenis = useLenis();
-  const collapsible = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = (id: string) => {
-    lenis?.scrollTo(`#${id}`, { offset: -64, duration: 1.2 });
-    setOpen(false);
-  };
-
-  // 👉 CLOSE ON OUTSIDE CLICK
+  // Bloquear scroll cuando el menú está abierto
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        collapsible.current &&
-        !collapsible.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
   }, [open]);
 
+  const handleScroll = (id: string) => {
+    setOpen(false);
+    setTimeout(() => {
+      lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+    }, 300); // Esperar a que cierre la animación
+  };
+
   return (
-    <div
-      className="w-full h-16 md:px-6 lg:px-28 flex items-center justify-between md:hidden text-primary border-b bg-card"
-      ref={collapsible}
-    >
-      <div className="flex w-full h-full justify-between px-4 items-center relative z-50 bg-card">
-        <Link
-          href="/"
-          className="font-bold text-lg flex items-center gap-2 text-foreground"
-        >
-          <div className=" flex">
-            <Waves className={`size-6 `} strokeWidth={2} />
-          </div>
-          <p className="text-2xl ">AGUAYRIO</p>
-        </Link>
+    <>
+      {/* HEADER FIJO */}
+      <nav className="fixed top-0 left-0 w-full h-20 z-100 flex px-6 py-2 backdrop-blur-lg border-b border-white/5 lg:hidden">
+        <div className="p-2 w-full flex justify-between items-center bg-card/60 border border-white/5">
+          <Link href="/" className="flex items-center gap-2 text-white">
+            <div className="p-1.5 bg-accent/20 rounded">
+              <CameraIcon className="size-5 text-accent" strokeWidth={2.5} />
+            </div>
+            <span className="text-lg font-black tracking-tighter uppercase">
+              RODRI<span className="text-accent">GO</span>
+            </span>
+          </Link>
 
-        <Button variant="ghost" onClick={() => setOpen((prev) => !prev)}>
-          <HiBars3 className="size-8" />
-        </Button>
-      </div>
+          <Button
+            variant="ghost"
+            onClick={() => setOpen(true)}
+            className="text-white p-0 hover:bg-transparent"
+          >
+            <HiBars3BottomRight className="size-8 text-accent" />
+          </Button>
+        </div>
+      </nav>
 
-      <AnimatePresence initial={false}>
+      {/* FULLSCREEN MENU OVERLAY */}
+      <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ y: { duration: 0.1, ease: "easeInOut" } }}
-            className="absolute top-full w-full"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-110 bg-background flex flex-col p-8"
           >
-            <ul className="flex flex-col px-4 py-6 gap-2 bg-primary text-primary-foreground w-full z-40 border-b border-border shadow-md">
-              {sections.map((sec) => (
-                <li key={sec.id}>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start text-base h-14 text-left font-semibold",
-                      activeSection === sec.id &&
-                        "bg-accent text-accent-foreground",
-                    )}
-                    onClick={() => handleScroll(sec.id)}
+            {/* UI de Cámara decorativa en las esquinas */}
+            <div className="absolute inset-4 border border-white/5 pointer-events-none">
+              <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-accent" />
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-accent" />
+            </div>
+
+            <div className="flex justify-between items-center z-10">
+              <div className="flex items-center gap-2 text-accent/50 font-mono text-[10px] tracking-[0.3em]">
+                <Disc className="size-3 animate-spin-slow" />
+                <span>MENU_SYSTEM_V.01</span>
+              </div>
+              <Button
+                variant="ghost"
+                onClick={() => setOpen(false)}
+                className="text-white hover:bg-accent/10 rounded-full"
+              >
+                <X className="size-8" />
+              </Button>
+            </div>
+
+            <ul className="flex flex-col justify-center flex-1 gap-6 relative z-10">
+              {sections.map((sec, i) => {
+                const isActive = activeSection === sec.id;
+                return (
+                  <motion.li
+                    key={sec.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 + 0.2 }}
                   >
-                    {sec.label}
-                  </Button>
-                </li>
-              ))}
+                    <button
+                      onClick={() => handleScroll(sec.id)}
+                      className={cn(
+                        "text-4xl font-black uppercase italic tracking-tighter transition-all text-left flex items-baseline gap-4",
+                        isActive
+                          ? "text-accent scale-105"
+                          : "text-white/40 hover:text-white",
+                      )}
+                    >
+                      <span className="text-xs font-mono not-italic opacity-30">
+                        0{i + 1}
+                      </span>
+                      {sec.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-dot"
+                          className="size-3 rounded-full bg-accent animate-pulse"
+                        />
+                      )}
+                    </button>
+                  </motion.li>
+                );
+              })}
             </ul>
+
+            {/* Footer del Menú */}
+            <div className="mt-auto pt-8 border-t border-white/5 flex flex-col gap-4 z-10">
+              <div className="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">
+                <span>Status: Ready</span>
+                <span>Battery: 88%</span>
+              </div>
+              <Button
+                className="w-full h-14 bg-white text-black font-black uppercase tracking-widest rounded-none"
+                onClick={() => handleScroll("contact")}
+              >
+                Start a Project
+              </Button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 };
 

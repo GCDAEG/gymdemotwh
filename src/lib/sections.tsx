@@ -6,7 +6,6 @@ export type NavSection = {
 
 export const sections: NavSection[] = [
   { id: "hero", label: "Inicio" },
-  { id: "rooms", label: "Habitaciones" },
   {
     id: "services",
     label: "Servicios",
@@ -15,5 +14,4 @@ export const sections: NavSection[] = [
     id: "gallery",
     label: "Galería",
   },
-  { id: "location", label: "Ubicación" },
 ];

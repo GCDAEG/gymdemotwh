@@ -86,9 +86,9 @@ function CtaButtonContent({
       aria-label="Contactar por WhatsApp"
       className={`
         group relative
-        inline-flex items-center gap-2.5 text-white
-        px-8 md:px-6 py-4 rounded-xl rounded-bl-none
-        font-semibold text-lg
+        inline-flex items-center gap-2.5 text-background
+        px-8 md:px-6 py-4 
+        font-semibold text-sm lg:text-lg
         shadow-sm hover:shadow-md
         transition-shadow duration-300
         focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2
