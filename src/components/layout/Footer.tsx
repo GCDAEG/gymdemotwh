@@ -1,69 +1,66 @@
 "use client";
 import {
-  Cpu,
   ArrowUpRight,
   ShieldCheck,
   Mail,
   Phone,
   MapPin,
   Instagram,
-  Twitter,
+  Facebook,
   Linkedin,
-  Zap,
+  Hammer,
+  Truck,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useLenis } from "lenis/react";
 import { sections } from "@/lib/sections";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export function FooterSection() {
   const lenis = useLenis();
 
   return (
-    <footer className="bg-background text-foreground border-t border-border pt-24 pb-12 px-6 md:px-12 lg:px-24 flex flex-col gap-20 overflow-hidden">
-      {/* SECCIÓN SUPERIOR: Brand & Direct CTA */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-        <div className="flex flex-col gap-10">
-          <Link href="/" className="flex items-center gap-3 group">
-            <span className="text-4xl font-bold tracking-tighter uppercase leading-none">
-              TECH<span className="font-light text-foreground/40">STORE</span>
+    <footer className="bg-white text-gray-900 border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 lg:px-20 flex flex-col gap-16 overflow-hidden">
+      {/* SECCIÓN SUPERIOR */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="flex flex-col gap-8">
+          <Link href="/" className="group">
+            <span className="text-3xl font-black tracking-tighter uppercase">
+              MARMOLES <span className="text-blue-600">ARG</span>
             </span>
           </Link>
 
-          <h3 className="text-3xl md:text-5xl font-light leading-[1.1] tracking-tighter max-w-lg">
-            Elevando el estándar del <br />
-            <span className="font-medium italic">alto rendimiento</span> <br />
-            digital.
+          <h3 className="text-2xl md:text-4xl font-bold leading-tight tracking-tight max-w-md">
+            Transformamos la piedra en <br />
+            <span className="text-gray-400">el alma de tu hogar.</span>
           </h3>
 
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-wrap gap-4">
             <Button
               onClick={() => lenis?.scrollTo("#contact")}
-              className="bg-primary text-background hover:bg-foreground hover:text-background rounded-none px-10 py-7 h-auto font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-500"
+              className="bg-blue-600 text-white hover:bg-gray-900 rounded-md px-8 py-6 h-auto font-bold uppercase tracking-widest text-xs transition-all"
             >
-              Consultoría Técnica <ArrowUpRight className="ml-2 size-4" />
+              Pedir Presupuesto <ArrowUpRight className="ml-2 size-4" />
             </Button>
           </div>
         </div>
 
-        {/* Info Grid: Estilo Directorio */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-12">
+        {/* Directorio de Enlaces */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
           {/* Navegación */}
-          <div className="flex flex-col gap-8">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-foreground/30">
-              Índice
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-400">
+              Empresa
             </h4>
-            <ul className="flex flex-col gap-5 text-[11px] font-bold uppercase tracking-widest">
+            <ul className="flex flex-col gap-4 text-sm font-bold">
               {sections.map((section) => (
                 <li key={section.id}>
                   <button
                     onClick={() =>
-                      lenis?.scrollTo(`#${section.id}`, { offset: -96 })
+                      lenis?.scrollTo(`#${section.id}`, { offset: -70 })
                     }
-                    className="text-foreground/50 hover:text-primary transition-colors flex items-center gap-2 group"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
                   >
-                    <span className="w-0 group-hover:w-3 h-px bg-primary transition-all" />
                     {section.label}
                   </button>
                 </li>
@@ -71,44 +68,42 @@ export function FooterSection() {
             </ul>
           </div>
 
-          {/* Contacto */}
-          <div className="flex flex-col gap-8">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-foreground/30">
-              Soporte
+          {/* Contacto Real */}
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-400">
+              Contacto
             </h4>
-            <ul className="flex flex-col gap-6">
-              <li className="flex flex-col gap-1 text-foreground/60 hover:text-primary transition-colors cursor-pointer">
-                <span className="text-[9px] font-bold uppercase tracking-widest opacity-40">
-                  Email
+            <ul className="flex flex-col gap-5">
+              <li className="flex flex-col gap-1">
+                <span className="text-[9px] font-bold uppercase text-gray-400">
+                  Ventas
                 </span>
-                <span className="text-[11px] font-medium font-mono">
-                  ops@techstore.pro
+                <span className="text-sm font-semibold italic">
+                  info@marmolesarg.com.ar
                 </span>
               </li>
-              <li className="flex flex-col gap-1 text-foreground/60 hover:text-primary transition-colors cursor-pointer">
-                <span className="text-[9px] font-bold uppercase tracking-widest opacity-40">
+              <li className="flex flex-col gap-1">
+                <span className="text-[9px] font-bold uppercase text-gray-400">
                   WhatsApp
                 </span>
-                <span className="text-[11px] font-medium font-mono">
-                  +54 9 3446 000000
-                </span>
+                <span className="text-sm font-semibold">+54 9 3446 000000</span>
               </li>
             </ul>
           </div>
 
-          {/* Social */}
-          <div className="flex flex-col gap-8 col-cols-2 sm:col-auto">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-foreground/30">
-              Social
+          {/* Redes */}
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-400">
+              Seguinos
             </h4>
-            <div className="flex gap-4">
-              {[Instagram, Twitter, Linkedin].map((Icon, i) => (
+            <div className="flex gap-3">
+              {[Instagram, Facebook, Linkedin].map((Icon, i) => (
                 <Link
                   key={i}
                   href="#"
-                  className="size-10 border border-border flex items-center justify-center hover:bg-primary hover:text-background transition-all"
+                  className="size-10 border border-gray-200 rounded-md flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all"
                 >
-                  <Icon className="size-4" strokeWidth={1.5} />
+                  <Icon className="size-4" strokeWidth={2} />
                 </Link>
               ))}
             </div>
@@ -116,54 +111,59 @@ export function FooterSection() {
         </div>
       </div>
 
-      {/* MARQUESINA DE PARTNERS (Hardware Aura) */}
-      <div className="w-full border-y border-border py-12 select-none">
-        <div className="flex overflow-hidden gap-16 font-bold text-2xl md:text-3xl tracking-tighter uppercase whitespace-nowrap opacity-[0.15]">
-          <div className="flex gap-16 animate-marquee items-center">
-            <span>Intel Core</span> <Zap className="size-5" />
-            <span>NVIDIA GeForce</span> <Zap className="size-5" />
-            <span>Corsair</span> <Zap className="size-5" />
-            <span>Samsung Memory</span> <Zap className="size-5" />
-            <span>ASUS ROG</span> <Zap className="size-5" />
-            <span>AMD Ryzen</span> <Zap className="size-5" />
+      {/* MARQUESINA DE MATERIALES */}
+      <div className="w-full border-y border-gray-100 py-8 select-none">
+        <div className="flex overflow-hidden gap-12 font-black text-xl md:text-2xl tracking-tighter uppercase whitespace-nowrap text-gray-200">
+          <div className="flex gap-12 animate-marquee items-center">
+            <span>Mármol Carrara</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Granito Negro</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Mesadas de Cocina</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Cuarcitas Naturales</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Instalación en Obra</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
           </div>
           <div
-            className="flex gap-16 animate-marquee items-center"
+            className="flex gap-12 animate-marquee items-center"
             aria-hidden="true"
           >
-            <span>Intel Core</span> <Zap className="size-5" />
-            <span>NVIDIA GeForce</span> <Zap className="size-5" />
-            <span>Corsair</span> <Zap className="size-5" />
-            <span>Samsung Memory</span> <Zap className="size-5" />
-            <span>ASUS ROG</span> <Zap className="size-5" />
-            <span>AMD Ryzen</span> <Zap className="size-5" />
+            <span>Mármol Carrara</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Granito Negro</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Mesadas de Cocina</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Cuarcitas Naturales</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
+            <span>Instalación en Obra</span>{" "}
+            <div className="size-2 bg-blue-600 rounded-full" />
           </div>
         </div>
       </div>
 
-      {/* BARRA DE ESTADO FINAL */}
-      <div className="flex flex-col md:flex-row justify-between items-end gap-10">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-6 text-[9px] font-bold uppercase tracking-[0.3em] text-foreground/30">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="size-3 text-primary" />
-              <span>Auth_Component_Dealer</span>
-            </div>
-            <div className="flex items-center gap-2 border-l border-border pl-6">
-              <Cpu className="size-3" />
-              <span>Inventory_Synced: 2026.04</span>
-            </div>
+      {/* FOOTER FINAL */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-gray-100 pt-10">
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+            <ShieldCheck className="size-3 text-blue-600" />
+            <span>Materiales Certificados</span>
           </div>
-          <p className="text-[10px] text-foreground/20 uppercase tracking-widest">
-            Copyright ©2026 TechStore | Todos los derechos reservados.
-          </p>
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+            <Truck className="size-3 text-blue-600" />
+            <span>Logística Propia</span>
+          </div>
         </div>
 
-        <div className="flex flex-col items-end gap-1">
-          <p className="text-[9px] font-bold text-foreground/40 uppercase tracking-[0.2em]">
-            Developed by <span className="text-primary">TUWEBHOY</span>
+        <div className="flex flex-col items-center md:items-end gap-1">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            © 2026 Marmoles Arg | Gualeguaychú, Entre Ríos
           </p>
-          <div className="h-0.5 w-12 bg-primary/20" />
+          <p className="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-blue-600 transition-colors cursor-pointer">
+            Diseño por TUWEBHOY
+          </p>
         </div>
       </div>
 
@@ -177,7 +177,7 @@ export function FooterSection() {
           }
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 30s linear infinite;
         }
       `}</style>
     </footer>

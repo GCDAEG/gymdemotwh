@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { ShoppingBag, X, Trash2, ArrowRight, Zap } from "lucide-react";
+import {
+  ShoppingBag,
+  X,
+  Trash2,
+  ArrowRight,
+  MessageCircle,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,10 +21,10 @@ export const CartDrawer = () => {
     if (cart.length === 0) return;
 
     const productList = cart
-      .map((item) => `• ${item.title} [${item.id}] - ${item.price}`)
+      .map((item) => `• ${item.title} - ${item.price}`)
       .join("\n");
 
-    const message = `*ORDEN DE COMPRA - TECHSTORE* 🛒\n\n${productList}\n\n*TOTAL:* $${totalPrice.toLocaleString()}\n\n_Consultar disponibilidad._`;
+    const message = `*SOLICITUD DE PRESUPUESTO - MARMOLES ARG* 🏛️\n\nHola, me interesa consultar por los siguientes materiales:\n\n${productList}\n\n*TOTAL ESTIMADO:* $${totalPrice.toLocaleString()}\n\n_Quedo a la espera de su asesoramiento técnico._`;
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
       "_blank",
@@ -27,19 +33,18 @@ export const CartDrawer = () => {
 
   return (
     <>
-      {/* TRIGGER: Icono en el Navbar */}
       <button
         onClick={() => setIsOpen(true)}
-        className="group relative flex items-center justify-center p-2 text-foreground/60 hover:text-primary transition-colors"
+        className="group relative flex items-center justify-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
       >
-        <ShoppingBag className="size-5" strokeWidth={1.5} />
+        <ShoppingBag className="size-6" strokeWidth={2} />
         <AnimatePresence>
           {cart.length > 0 && (
             <motion.span
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
-              className="absolute -top-0.5 -right-0.5 size-4 bg-primary text-[8px] text-white flex items-center justify-center rounded-full font-bold shadow-lg shadow-primary/20"
+              className="absolute top-1 right-1 size-4 bg-blue-600 text-[9px] text-white flex items-center justify-center rounded-full font-bold shadow-sm"
             >
               {cart.length}
             </motion.span>
@@ -47,52 +52,47 @@ export const CartDrawer = () => {
         </AnimatePresence>
       </button>
 
-      {/* OVERLAY & DRAWER */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop oscuro */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[120] bg-background/60 backdrop-blur-sm"
+              className="fixed inset-0 z-[120] bg-black/40 backdrop-blur-sm"
             />
 
-            {/* Panel Lateral */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-full max-w-md z-[130] bg-background border-l border-border shadow-2xl flex flex-col"
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 right-0 h-full w-full max-w-md z-[130] bg-white shadow-2xl flex flex-col"
             >
-              {/* Header del Carrito */}
-              <div className="p-8 border-b border-border flex items-center justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/30">
-                    Mi Selección
+              <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    Tu Selección
                   </span>
-                  <h2 className="text-xl font-bold tracking-tighter uppercase">
-                    Carrito
+                  <h2 className="text-xl font-bold text-gray-900">
+                    Materiales
                   </h2>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="size-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-all"
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-900"
                 >
-                  <X className="size-5" strokeWidth={1.5} />
+                  <X className="size-6" />
                 </button>
               </div>
 
-              {/* Lista de Productos */}
-              <div className="flex-1 overflow-y-auto p-8 space-y-6">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
                 {cart.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center gap-4 opacity-30">
-                    <ShoppingBag className="size-12" strokeWidth={1} />
-                    <p className="text-xs uppercase tracking-widest font-bold">
-                      El carrito está vacío
+                  <div className="h-full flex flex-col items-center justify-center text-center gap-4 text-gray-300">
+                    <ShoppingBag className="size-16" strokeWidth={1} />
+                    <p className="text-sm font-bold uppercase tracking-widest">
+                      No hay materiales seleccionados
                     </p>
                   </div>
                 ) : (
@@ -100,66 +100,64 @@ export const CartDrawer = () => {
                     <motion.div
                       key={`${item.id}-${index}`}
                       layout
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="group flex justify-between items-start border-b border-border/50 pb-6"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex justify-between items-center p-4 border border-gray-100 rounded-lg bg-gray-50/50 group"
                     >
                       <div className="flex flex-col gap-1">
-                        <span className="text-[8px] font-bold text-primary uppercase tracking-widest">
+                        <span className="text-[9px] font-bold text-blue-600 uppercase tracking-widest">
                           {item.category}
                         </span>
-                        <h4 className="text-sm font-medium tracking-tight">
+                        <h4 className="text-sm font-bold text-gray-900">
                           {item.title}
                         </h4>
-                        <span className="text-xs font-bold mt-1">
+                        <span className="text-xs font-semibold text-gray-500">
                           {item.price}
                         </span>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="p-2 text-foreground/20 hover:text-destructive transition-colors"
+                        className="p-2 text-gray-300 hover:text-red-500 transition-colors"
                       >
-                        <Trash2 className="size-4" strokeWidth={1.5} />
+                        <Trash2 className="size-5" />
                       </button>
                     </motion.div>
                   ))
                 )}
               </div>
 
-              {/* Footer / Checkout */}
               {cart.length > 0 && (
-                <div className="p-8 bg-card border-t border-border space-y-6">
-                  <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-foreground/30">
-                      Subtotal Estimado
+                <div className="p-6 bg-gray-50 border-t border-gray-100 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                      Total Estimado
                     </span>
-                    <span className="text-2xl font-bold tracking-tighter">
+                    <span className="text-2xl font-black text-gray-900">
                       ${totalPrice.toLocaleString()}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="space-y-3">
                     <Button
                       onClick={handleCheckout}
-                      className="w-full h-16 bg-primary text-background rounded-none font-bold uppercase text-[10px] tracking-[0.2em] group relative overflow-hidden"
+                      className="w-full h-14 bg-blue-600 text-white rounded-md font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-3 hover:bg-blue-700 transition-all shadow-md"
                     >
-                      <div className="relative z-10 flex items-center gap-2">
-                        Finalizar en WhatsApp{" "}
-                        <Zap className="size-3 fill-current" />
-                      </div>
+                      Solicitar Presupuesto
+                      <MessageCircle className="size-4 fill-white" />
                     </Button>
 
                     <button
                       onClick={clearCart}
-                      className="text-[9px] uppercase tracking-widest font-bold text-foreground/30 hover:text-destructive transition-colors py-2"
+                      className="w-full text-[10px] uppercase tracking-widest font-bold text-gray-400 hover:text-red-500 transition-colors"
                     >
-                      Vaciar Carrito
+                      Limpiar lista
                     </button>
                   </div>
 
-                  <p className="text-[9px] text-center text-foreground/30 uppercase tracking-tight leading-relaxed">
-                    Al finalizar, serás redirigido a WhatsApp para coordinar el
-                    pago y envío con un asesor técnico.
+                  <p className="text-[10px] text-center text-gray-400 font-medium leading-relaxed">
+                    Al solicitar presupuesto, nos pondremos en contacto vía
+                    WhatsApp para coordinar medidas, cortes y logística de
+                    instalación.
                   </p>
                 </div>
               )}
