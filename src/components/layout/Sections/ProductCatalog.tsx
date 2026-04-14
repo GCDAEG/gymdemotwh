@@ -15,13 +15,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
-import { Product } from "@/lib/getProduct";
+import { SanityDocument } from "next-sanity";
 
 interface ProductCatalogProps {
-  initialProducts: Product[];
+  posts: SanityDocument[];
 }
 
-const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
+const ProductCatalog: React.FC<ProductCatalogProps> = ({ posts }) => {
   const WHATSAPP_NUMBER = "5493446000000";
   const { addToCart } = useCart();
   const [activeCategory, setActiveCategory] = useState("Todos");
@@ -43,12 +43,12 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
   // Categorías dinámicas basadas en los productos reales que vienen de la Sheets
   const dynamicCategories = [
     "Todos",
-    ...Array.from(new Set(initialProducts.map((p) => p.categoria))),
+    ...Array.from(new Set(posts.map((p) => p.category))),
   ];
 
-  const filteredProducts = initialProducts.filter(
+  const filteredProducts = posts.filter(
     (product) =>
-      activeCategory === "Todos" || product.categoria === activeCategory,
+      activeCategory === "Todos" || product.category === activeCategory,
   );
 
   const handleWhatsAppOrder = (productName: string, productId: string) => {
@@ -96,7 +96,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                     : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-gray-50",
                 )}
               >
-                {cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase()}
+                {cat}
               </button>
             ))}
           </div>
@@ -112,7 +112,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
             <AnimatePresence mode="popLayout">
               {filteredProducts.map((product) => (
                 <motion.div
-                  key={product.id}
+                  key={product._id}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -122,10 +122,10 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                 >
                   {/* Imagen de Postimages / Sheets */}
                   <div className="h-48 bg-gray-50 relative flex items-center justify-center border-b border-gray-100 overflow-hidden">
-                    {product.imagen_url ? (
+                    {product.image_url ? (
                       <Image
                         src={product.imagen_url}
-                        alt={product.nombre}
+                        alt={product.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 25vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
@@ -137,20 +137,20 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                     <div
                       className={cn(
                         "absolute top-3 left-3 px-2 py-1 rounded-[4px] text-[10px] font-bold uppercase tracking-wide shadow-sm z-10",
-                        getStatusColor(product.estado),
+                        getStatusColor(product.state),
                       )}
                     >
-                      {product.estado}
+                      {product.state}
                     </div>
                   </div>
 
                   <div className="p-5 flex flex-col flex-1">
                     <div className="mb-4">
                       <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1.5">
-                        {product.categoria}
+                        {product.category}
                       </p>
                       <h3 className="text-lg font-black text-slate-900 leading-tight">
-                        {product.nombre}
+                        {product.name}
                       </h3>
                     </div>
 
@@ -158,20 +158,20 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                       <li className="flex items-center gap-2">
                         <MapPin className="size-3.5 opacity-60" /> Origen:{" "}
                         <span className="text-slate-900 font-bold">
-                          {product.origen}
+                          {product.origin}
                         </span>
                       </li>
                       <li className="flex items-center gap-2">
                         <Maximize className="size-3.5 opacity-60" /> Espesor:{" "}
                         <span className="text-slate-900 font-bold">
-                          {product.espesor}
+                          {product.thickness}
                         </span>
                       </li>
                       <li className="flex items-center gap-2">
                         <Sparkles className="size-3.5 opacity-60" />{" "}
                         Terminación:{" "}
                         <span className="text-slate-900 font-bold">
-                          {product.terminacion}
+                          {product.termination}
                         </span>
                       </li>
                     </ul>
@@ -184,7 +184,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                           </span>
                           <div className="flex items-baseline gap-1">
                             <span className="text-2xl font-black text-slate-900">
-                              ${product.precio.toLocaleString("es-AR")}
+                              ${product.price.toLocaleString("es-AR")}
                             </span>
                             <span className="text-sm font-bold text-slate-900">
                               /m²
@@ -193,7 +193,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                         </div>
                         <button
                           onClick={() =>
-                            handleWhatsAppOrder(product.nombre, product.id)
+                            handleWhatsAppOrder(product.name, product._id)
                           }
                           className="size-10 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center justify-center text-slate-900 transition-colors shadow-sm active:scale-90"
                         >
@@ -204,10 +204,10 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialProducts }) => {
                       <button
                         onClick={() =>
                           addToCart({
-                            id: product.id,
-                            title: product.nombre,
-                            price: product.precio.toString(),
-                            category: product.categoria,
+                            id: product._id,
+                            title: product.name,
+                            price: product.price.toString(),
+                            category: product.category,
                           })
                         }
                         className="w-full bg-[#0f172a] text-white hover:bg-[#1e293b] py-3 rounded-lg text-xs font-bold uppercase flex items-center justify-center gap-2 transition-colors active:scale-[0.98]"

@@ -23,7 +23,11 @@ devIndicators: false,
       {
         protocol:'https',
         hostname:'molinsdesign.com'
-      }
+      },{
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+      },
       
     ],
   },
