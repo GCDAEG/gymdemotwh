@@ -20,7 +20,7 @@ const DesktopMenu = ({
   return (
     <div className="w-full h-full hidden lg:flex items-center bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all px-4 md:px-8 lg:px-40">
       {/* Alineamos el ancho máximo con el resto del diseño (1200px) */}
-      <div className="max-w-300 w-full mx-auto flex justify-between items-center border-red-500 border">
+      <div className="max-w-300 w-full mx-auto flex justify-between items-center">
         {/* LOGO - Estilo SaaS (Fuente pesada, ícono con fondo suave) */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="size-10 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -32,7 +32,7 @@ const DesktopMenu = ({
         </Link>
 
         {/* ENLACES DE NAVEGACIÓN - Minimalistas, sans-serif */}
-        <ul className="flex items-center gap-8 border-red-500 border">
+        <ul className="flex items-center gap-8">
           {sections.map((s) => (
             <li key={s.id}>
               <button
@@ -54,7 +54,7 @@ const DesktopMenu = ({
         </ul>
 
         {/* ACCIÓN Y COTIZADOR (CARRITO) */}
-        <div className="flex items-center gap-6 border-red-500 border">
+        <div className="flex items-center gap-6 ">
           <div className="h-8 w-px bg-gray-200 mx-2" />
           <CartDrawer />
         </div>

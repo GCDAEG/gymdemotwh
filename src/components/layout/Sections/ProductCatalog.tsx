@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import { SanityDocument } from "next-sanity";
+import { urlFor } from "@/lib/sanity.image";
 
 interface ProductCatalogProps {
   posts: SanityDocument[];
@@ -122,9 +123,9 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ posts }) => {
                 >
                   {/* Imagen de Postimages / Sheets */}
                   <div className="h-48 bg-gray-50 relative flex items-center justify-center border-b border-gray-100 overflow-hidden">
-                    {product.image_url ? (
+                    {product.imagen_url ? (
                       <Image
-                        src={product.imagen_url}
+                        src={urlFor(product.imagen_url).width(800).url()}
                         alt={product.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 25vw"
