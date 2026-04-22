@@ -10,23 +10,23 @@
 }
 
 :root {
-  /* Fondo blanco puro para mantener la interfaz limpia e iluminada */
-  --background: #ffffff;
+  /* Fondo principal en Zinc-950 para el look de gimnasio premium */
+  --background: #09090b;
   
-  /* Texto principal en un tono Slate muy oscuro (casi azul marino oscuro) */
-  --foreground: #0f172a; 
+  /* Texto principal claro (Blanco/Zinc-50) para máxima legibilidad en fondo oscuro */
+  --foreground: #fafafa; 
 
-  /* Azul vibrante (tipo blue-600) característico del diseño moderno para títulos y botones principales */
-  --primary: #2563eb; 
+  /* Verde Esmeralda vibrante (Emerald-500) para CTAs, rayos e íconos */
+  --primary: #10b981; 
   
-  /* Color secundario oscuro para los botones de las tarjetas y filtros activos */
-  --accent: #1e293b;
+  /* Color secundario oscuro (Zinc-900) para el fondo de las tarjetas y modales */
+  --accent: #18181b;
 
-  /* Gris muy claro y sutil para los bordes de las tarjetas */
-  --border: #f1f5f9; 
+  /* Borde oscuro (Zinc-800) para separar elementos sin generar un contraste molesto */
+  --border: #27272a; 
 
-  /* Bordes suaves y modernos (12px), típicos de las plataformas SaaS */
-  --radius: 0.75rem; 
+  /* Bordes más redondeados (24px) que es la tendencia en interfaces móviles actuales */
+  --radius: 1.5rem; 
 }
 
 button {
@@ -34,16 +34,15 @@ button {
 }
 
 @layer base {
-  html{
-    @apply overflow-x-hidden
+  html {
+    @apply overflow-x-hidden scroll-smooth;
   }
   body {
     @apply bg-background text-foreground antialiased;
-    /* Tipografía Sans-serif para toda la web (Inter o Roboto funcionan perfecto para esto) */
+    /* Tipografía Sans-serif (se mantiene, pero ahora el texto por defecto es blanco) */
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
-  /* Aseguramos que los títulos hereden la fuente Sans-serif, eliminando cualquier Serif previa */
   h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
   }
@@ -54,8 +53,36 @@ button {
 }
 
 @layer components {
-  /* Tarjeta adaptada al diseño de la imagen: bordes suaves, fondo blanco y sombra sutil al hacer hover */
-  .card-marmol {
-    @apply border border-border bg-white rounded-[var(--radius-custom)] transition-all duration-300 hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5;
+  /* Tarjeta adaptada al gimnasio: fondo oscuro, borde que se pinta de verde al hover y resplandor estilo neón */
+  .card-gym {
+    @apply border border-border bg-accent rounded-[var(--radius-custom)] transition-all duration-500 hover:border-primary/50 hover:shadow-[0_10px_40px_rgba(16,185,129,0.1)] hover:-translate-y-1;
   }
+}
+
+/* ==========================================================================
+   CUSTOM SCROLLBAR (Dark Theme - Gym)
+   ========================================================================== */
+
+/* Ancho general de la barra */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; /* Para el scroll horizontal si existe */
+}
+
+/* El fondo (track) por donde se desliza la barra */
+::-webkit-scrollbar-track {
+  background: #09090b; /* zinc-950 */
+  border-left: 1px solid #18181b; /* zinc-900 */
+}
+
+/* La barra que se mueve (thumb) */
+::-webkit-scrollbar-thumb {
+  background: #27272a; /* zinc-800 */
+  border-radius: 8px; 
+  border: 2px solid #09090b;
+}
+
+/* Hover sobre la barra */
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981; /* emerald-500 */
 }

@@ -3,7 +3,7 @@
 export const siteConfig = {
   // 1. Identidad Visual y Marca
   brand: {
-    name: "MÁRMOLES Y GRANITOS",
+    name: "GYM",
     suffix: "Gualeguaychú", 
     logo: "/logos/marmoles-logo.png",
     theme: "monolithic-elegant", 

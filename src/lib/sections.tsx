@@ -10,15 +10,19 @@ export const sections: NavSection[] = [
     label: "Inicio",
   },
   {
-    id: "catalog",
-    label: "Catálogo", // O "Productos" / "Materiales"
+    id: "planes",
+    label: "Planes", // O "Productos" / "Materiales"
   },
   {
-    id: "como-trabajamos",
-    label: "Proceso",
+    id: "clases",
+    label: "Clases",
   },
   {
-    id: "nosotros",
-    label: "Nosotros",
+    id: "instalaciones",
+    label: "instalaciones",
+  },
+  {
+    id: "contacto",
+    label: "Contacto",
   },
 ];

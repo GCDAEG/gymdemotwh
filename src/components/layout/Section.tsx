@@ -36,8 +36,9 @@ export function Section({
       id={id}
       ref={ref}
       className={cn(
-        "relative w-screen px-5 md:px-8 lg:px-40 py-12 md:py-16 ",
-        height === "screen" && "min-h-[calc(100vh-5rem)]",
+        "relative w-screen px-4 lg:px-8 py-12 md:py-16 ",
+        height === "screen" &&
+          "min-h-[calc(100vh-5rem)] max-h-[calc(100vh-5rem)]",
         className,
         animate === "fade" && isInView && "animate-fade-in",
       )}
